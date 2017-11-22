@@ -1,10 +1,6 @@
 use epoll;
 
-my $epoll = epoll.new;
-
-$epoll.add(0, :in, :edge-triggered);
-
-for $epoll.wait
+for epoll.new.add(0, :in).wait
 {
-    .fd.say if .in;
+    say "ready to read on {.fd}" if .in;
 }

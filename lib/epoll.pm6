@@ -27,10 +27,10 @@ class epoll-event is repr('CStruct')
 {
     has uint32 $.events;
     has int32  $.fd;
-    has int32  $.pad;
+    has int32  $!pad;
 
-    method in  { so $!events +| EPOLLIN }
-    method out { so $!events +| EPOLLOUT }
+    method in  { so $!events +& EPOLLIN }
+    method out { so $!events +& EPOLLOUT }
 }
 
 sub sys_close(int32 --> int32) is native is symbol('close') {}
@@ -47,9 +47,9 @@ sub epoll_wait(int32, Pointer, int32, int32 --> int32) is native {}
 
 class epoll
 {
-    has $.epfd;
     has $.maxevents = 1;
-    has Pointer $.events;
+    has $!epfd;
+    has Pointer $!events;
 
     submethod TWEAK
     {
@@ -71,7 +71,8 @@ class epoll
                           Bool :$out = False,
                           Bool :$priority = False,
                           Bool :$edge-triggered = False,
-                          Bool :$one-shot = False)
+                          Bool :$one-shot = False,
+                          Bool :$mod = False)
     {
         my int32 $events = EPOLLIN      * $in
                         +| EPOLLPRI     * $priority
@@ -81,9 +82,10 @@ class epoll
 
         my $event = epoll-event.new(:$events, :$fd);
 
-        if epoll_ctl($!epfd, EPOLL_CTL_ADD, $fd, $event) < 0
+        if epoll_ctl($!epfd, ($mod ?? EPOLL_CTL_MOD !! EPOLL_CTL_ADD),
+                     $fd, $event) == -1
         {
-            die 'Failed add in epoll_ctl()';
+            die 'Failed epoll_ctl()';
         }
 
         self
@@ -93,7 +95,7 @@ class epoll
     {
         if -1 == epoll_ctl($!epfd, EPOLL_CTL_DEL, $fd, epoll-event) < 0
         {
-            die 'Failed remove in epoll_ctl()';
+            die 'Failed in epoll_ctl()';
         }
     }
 
