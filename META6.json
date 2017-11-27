@@ -17,7 +17,7 @@
 
     "description" : "Perl6 bindings for epoll(), async IO event notification",
 
-    "test-depends" : [ "Test", "Test::META" ],
+    "test-depends" : [ "Test", "Test::When", "Test::META" ],
 
     "license" : "NASA-1.3",
 
