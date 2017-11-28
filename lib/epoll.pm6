@@ -67,6 +67,13 @@ class epoll
         $!events = Pointer;
     }
 
+    method reset
+    {
+        free($_) with $!events;
+        $!events = calloc($!maxevents, nativesizeof(epoll-event));
+        die "Out of memory" unless $!events;
+    }
+
     method add(int32 $fd, Bool :$in = False,
                           Bool :$out = False,
                           Bool :$priority = False,
