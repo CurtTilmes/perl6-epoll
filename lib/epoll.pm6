@@ -117,7 +117,7 @@ class epoll
 
 =head1 NAME
 
-epoll
+epoll - I/O event notification facility
 
 =head1 SYNOPSIS
 

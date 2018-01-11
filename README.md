@@ -1,7 +1,7 @@
 NAME
 ====
 
-epoll
+epoll - I/O event notification facility
 
 SYNOPSIS
 ========
