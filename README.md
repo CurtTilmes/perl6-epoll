@@ -41,12 +41,39 @@ Create a new epoll object. Maxevents is the maximum number of events that can be
   * method **add**(int32 $file-descriptor, ...event flags...)
 
     Flags:
-      :in             = EPOLLIN       = ready for read
-      :out            = EPOLLOUT      = ready for write
-      :priority       = EPOLLPRI      = urgent data available for read
-      :edge-triggered = EPOLLET       = Edge Triggered
-      :one-shot       = EPOLLONESHOT  = Disables after 1 event
-      :mod            = EPOLL_CTL_MOD = Modify an existing file descriptor
+
+<table>
+  <tr>
+    <td>:in</td>
+    <td>EPOLLIN</td>
+    <td>ready for read</td>
+  </tr>
+  <tr>
+    <td>:out</td>
+    <td>EPOLLOUT</td>
+    <td>ready for write</td>
+  </tr>
+  <tr>
+    <td>:priority</td>
+    <td>EPOLLPRI</td>
+    <td>urgent data available for read</td>
+  </tr>
+  <tr>
+    <td>:edge-triggered</td>
+    <td>EPOLLET</td>
+    <td>Edge Triggered</td>
+  </tr>
+  <tr>
+    <td>:one-shot</td>
+    <td>EPOLLONESHOT</td>
+    <td>Disables after 1 event</td>
+  </tr>
+  <tr>
+    <td>:mod</td>
+    <td>EPOLL_CTL_MOD</td>
+    <td>Modify an existing file descriptor</td>
+  </tr>
+</table>
 
 :mod is equivalent to EPOLL_CTL_MOD to change the events for a file descriptor already added. It will also re-enable a file descriptor disabled by :one-shot mode.
 

@@ -67,13 +67,6 @@ class epoll
         $!events = Pointer;
     }
 
-    method reset
-    {
-        free($_) with $!events;
-        $!events = calloc($!maxevents, nativesizeof(epoll-event));
-        die "Out of memory" unless $!events;
-    }
-
     method add(int32 $fd, Bool :$in = False,
                           Bool :$out = False,
                           Bool :$priority = False,
@@ -100,7 +93,7 @@ class epoll
 
     method remove(int32 $fd)
     {
-        if -1 == epoll_ctl($!epfd, EPOLL_CTL_DEL, $fd, epoll-event) < 0
+        if epoll_ctl($!epfd, EPOLL_CTL_DEL, $fd, epoll-event) == -1
         {
             die 'Failed in epoll_ctl()';
         }
@@ -166,13 +159,15 @@ that can be returned from a single call to wait.
 
 =item method B<add>(int32 $file-descriptor, ...event flags...)
 
-  Flags:
-    :in             = EPOLLIN       = ready for read
-    :out            = EPOLLOUT      = ready for write
-    :priority       = EPOLLPRI      = urgent data available for read
-    :edge-triggered = EPOLLET       = Edge Triggered
-    :one-shot       = EPOLLONESHOT  = Disables after 1 event
-    :mod            = EPOLL_CTL_MOD = Modify an existing file descriptor
+    Flags:
+
+=table
+      :in             | EPOLLIN       | ready for read
+      :out            | EPOLLOUT      | ready for write
+      :priority       | EPOLLPRI      | urgent data available for read
+      :edge-triggered | EPOLLET       | Edge Triggered
+      :one-shot       | EPOLLONESHOT  | Disables after 1 event
+      :mod            | EPOLL_CTL_MOD | Modify an existing file descriptor
 
 :mod is equivalent to EPOLL_CTL_MOD to change the events for a file
 descriptor already added.  It will also re-enable a file descriptor
