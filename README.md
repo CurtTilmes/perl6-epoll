@@ -29,7 +29,7 @@ SYNOPSIS
 DESCRIPTION
 ===========
 
-Simple low level interface around the Linux epoll(7) I/O event notification facility. It can monitor multiple file descriptors to see if I/O is possible on any of them. Mainly useful for interfacing with other NativeCall modules, since Perl itself has a rich I/O system. If you really want to use this with Perl `IO::Handle`s, you can use `native-descriptor()` to get a suitable descriptor.
+Simple low level interface around the Linux `epoll(7)` I/O event notification facility. It can monitor multiple file descriptors to see if I/O is possible on any of them. Mainly useful for interfacing with other NativeCall modules, since Perl itself has a rich I/O system. If you really want to use this with Perl `IO::Handle`s, you can use `native-descriptor()` to get a suitable descriptor.
 
 class **epoll**
 ---------------

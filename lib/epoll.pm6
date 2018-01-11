@@ -143,7 +143,7 @@ epoll - I/O event notification facility
 
 =head1 DESCRIPTION
 
-Simple low level interface around the Linux epoll(7) I/O event
+Simple low level interface around the Linux C<epoll(7)> I/O event
 notification facility.  It can monitor multiple file descriptors to
 see if I/O is possible on any of them.  Mainly useful for interfacing
 with other NativeCall modules, since Perl itself has a rich I/O
