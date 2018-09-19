@@ -1,11 +1,11 @@
 {
     "name" : "epoll",
 
-    "version" : "0.1",
+    "version" : "0.2",
 
     "source-url" : "https://github.com/CurtTilmes/perl6-epoll.git",
 
-    "perl" : "6.c",
+    "perl" : "6.*",
 
     "tags" : [ "IO", "NET", "ASYNC", "LINUX", "NATIVECALL" ],
 

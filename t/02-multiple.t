@@ -1,4 +1,5 @@
 use Test;
+use Test::When <extended>;
 use epoll;
 
 plan 10;
